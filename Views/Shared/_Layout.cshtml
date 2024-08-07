@@ -4,41 +4,59 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/Content/Images/BG_logo.png" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body class="pt-0">
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
         <div class="container-fluid">
-
             @{
                 var url = Url.Action("Index", "Home", new { area = "" });
             }
 
             <a href="@url" class="navbar-brand">
-                <img src="~/Content/Images/BG_logo.png" alt="Bill Generator" style="height:50px; width:50px"/>
+                <img src="~/Content/Images/BG_logo.png" alt="Bill Generator" style="height:50px; width:50px" />
             </a>
-            @*<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>*@
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menubar" title="Toggle navigation" aria-controls="menubar"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse " id="menubar">
-                <ul class="navbar-nav ms-auto">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    @*<li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>*@
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link active" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("View Bills", "Index", "BG", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Create Bill", "Create", "BG", null, new { @class = "nav-link" })
+                    </li>
+
                 </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("Logout", "Account")" class="btn btn-danger nav-link text-white">Logout</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("Login", "Account")" class="btn btn-primary nav-link text-white">Login</a>
+                        </li>
+                    }
+                </ul>
+
             </div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")
