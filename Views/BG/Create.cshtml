@@ -4,11 +4,14 @@
     ViewBag.Title = "Create";
 }
 
-<div class="container shadow rounded mt-4">
+<div class="container mt-4">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-6 col-md-6 col-lg-6 offset-3 shadow rounded">
             @using (Html.BeginForm())
             {
+                <div class="mt-2">
+                    <h3 class="text-center">Create Bill</h3>
+                </div>
                 <div class="mb-3">
                     <lable class="form-label">Customer Name</lable>
                     @Html.TextBoxFor(modelItem => modelItem.CustomerName, new { @class = "form-control form-control-sm" })
@@ -23,18 +26,20 @@
                 </div>
 
                 <div class="mb-3">
-                    <h4>Items</h4>
+                    <div>
+                        <span class="h5">Items</span>
+                        <button type="button" class="btn btn-sm btn-primary border float-end" data-bs-toggle="modal" data-bs-target="#modalbox">Add Item</button>
+                    </div>
                     <table id="items" class="table table-striped table-responsive table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th>Product Name</th>
+                                <th>Item</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
-                                <th></th>
+                                <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
-
                         </tbody>
                     </table>
                 </div>
@@ -43,6 +48,32 @@
 
                 </div>
             }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalbox" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">        
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Item</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Enter Item Name" id="itemname" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" class="form-control form-control-sm" placeholder="Enter Quantity" id="qty" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Price</label>
+                    <input type="number" class="form-control form-control-sm" placeholder="Enter Price" id="price" />
+                </div>
+
+                <div class="mb-3">
+                    <button class="btn btn-sm btn-success" type="button" id="additem">Add</button>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
