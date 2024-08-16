@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BillGenerator.Models;
 
 namespace BillGenerator.Repository
 {
-    internal interface IData
+    interface IData
     {
+        void saveBillDetails(BillDetails details);
     }
 }

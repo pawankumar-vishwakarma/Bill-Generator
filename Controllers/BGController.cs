@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BillGenerator.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,12 @@ namespace BillGenerator.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(BillDetails details)
+        {
+            return ;
         }
     }
 }
