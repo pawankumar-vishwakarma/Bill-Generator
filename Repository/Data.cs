@@ -13,7 +13,7 @@ namespace BillGenerator.Repository
     public class Data : IData
     {
         public string ConnString { get; set; }
-        public Data() 
+        public Data()
         {
             ConnString = ConfigurationManager.ConnectionStrings["dbConnection"].ConnectionString;
         }
@@ -38,14 +38,41 @@ namespace BillGenerator.Repository
                 cmd.Parameters.Add(outputPara);
                 cmd.ExecuteNonQuery();
                 int id = int.Parse(outputPara.Value.ToString());
+                if (details.Items.Count > 0)
+                {
+                    saveBillItems(details.Items, con, id);
+                }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
             finally
             {
                 con.Close();
+            }
+        }
+
+        public void saveBillItems(List<Items> items, SqlConnection con, int id)
+        {
+            try
+            {
+                string qry = "insert into tbl_BillItems(ProductName, Price, Quantity) values";
+                foreach (var item in items)
+                {
+                    qry += String.Format("('{0}',{1},{2},{3})",item.ProductName,item.Price,item.Quantity,id);
+                }
+                qry = qry.Remove(qry.Length-1);
+                SqlCommand cmd = new SqlCommand(qry, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close ();
             }
         }
     }

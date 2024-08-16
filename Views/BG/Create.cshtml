@@ -44,7 +44,7 @@
                     </table>
                 </div>
                 <div class="mb-3">
-                    <button type="button" class="btn btn-sm btn-success">Save</button>
+                    <button type="submit" class="btn btn-sm btn-success">Save</button>
 
                 </div>
             }
@@ -78,3 +78,28 @@
     </div>
 </div>
 
+<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#additem').click(function () {
+            let productName = $('#itemname').val();
+            let price = $('#price').val();
+            let qty = $('#qty').val();
+            let ItemIndex = $('#items tbody tr').length;
+            $.ajax({
+                url: "/BillGenerator/CreateItem",
+                type: "POST",
+                data: { productName, price, qty, ItemIndex },
+                success: function (resp) {
+                    $('#items tbody').append(resp);
+                    $('#itemname').val("");
+                    $('#price').val("");
+                    $('#qty').val("");
+                },
+                error: function (err) {
+                    alert(err)
+                }
+            })
+        })
+    })
+</script>

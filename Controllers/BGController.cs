@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BillGenerator.Repository;
 
 namespace BillGenerator.Controllers
 {
@@ -23,7 +24,16 @@ namespace BillGenerator.Controllers
         [HttpPost]
         public ActionResult Create(BillDetails details)
         {
-            return ;
+            Data data = new Data();
+            data.saveBillDetails(details);
+            ModelState.Clear();
+            return View();
+        }
+
+       
+        public ActionResult CreateItem(Items item)
+        {
+            return PartialView("_CreateItem", item);
         }
     }
 }
