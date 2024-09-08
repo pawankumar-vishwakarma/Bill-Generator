@@ -60,7 +60,7 @@ namespace BillGenerator.Repository
                 string qry = "insert into tbl_BillItems(ProductName, Price, Quantity) values";
                 foreach (var item in items)
                 {
-                    qry += String.Format("('{0}',{1},{2},{3})",item.ProductName,item.Price,item.Quantity,id);
+                    qry += String.Format("('{0}',{1},{2},{3}),",item.ProductName,item.Price,item.Quantity,id);
                 }
                 qry = qry.Remove(qry.Length-1);
                 SqlCommand cmd = new SqlCommand(qry, con);
