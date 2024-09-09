@@ -36,7 +36,7 @@
                                 <th>Item</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
-                                <th>Total</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,6 +71,7 @@
 
                 <div class="mb-3">
                     <button class="btn btn-sm btn-success" type="button" id="additem">Add</button>
+                    <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" >Close</button>
                 </div>
 
             </div>
@@ -82,12 +83,14 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#additem').click(function () {
+            
             let productName = $('#itemname').val();
             let price = $('#price').val();
             let qty = $('#qty').val();
+            console.log(qty)
             let ItemIndex = $('#items tbody tr').length;
             $.ajax({
-                url: "/BillGenerator/CreateItem",
+                url: "/BG/CreateItem",
                 type: "POST",
                 data: { productName, price, qty, ItemIndex },
                 success: function (resp) {

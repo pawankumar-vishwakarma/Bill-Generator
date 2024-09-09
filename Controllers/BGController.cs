@@ -31,8 +31,29 @@ namespace BillGenerator.Controllers
         }
 
        
-        public ActionResult CreateItem(Items item)
+        //public ActionResult CreateItem(Items item)
+        //{
+        //    return PartialView("_CreateItem", item);
+        //}
+
+        [HttpPost]
+        public ActionResult CreateItem(string productName, int price, int qty, int itemIndex)
         {
+            // Verify that qty is passed as expected
+            if (qty == 0)
+            {
+                // Add some logging or breakpoint to check why qty is 0
+            }
+
+            // Create the item
+            var item = new Items
+            {
+                ProductName = productName,
+                Price = price,
+                Quantity = qty,  // Make sure this receives the correct value
+                ItemIndex = itemIndex
+            };
+
             return PartialView("_CreateItem", item);
         }
     }
