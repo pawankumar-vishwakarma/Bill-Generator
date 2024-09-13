@@ -53,27 +53,72 @@ namespace BillGenerator.Repository
             }
         }
 
+        //public void saveBillItems(List<Items> items, SqlConnection con, int id)
+        //{
+        //    try
+        //    {
+        //        string qry = "insert into tbl_BillItems(ProductName, Price, Quantity) values";
+        //        foreach (var item in items)
+        //        {
+        //            qry += String.Format("('{0}',{1},{2},{3}),",item.ProductName,item.Price,item.Quantity,id);
+        //        }
+        //        qry = qry.Remove(qry.Length-1);
+        //        SqlCommand cmd = new SqlCommand(qry, con);
+        //        cmd.ExecuteNonQuery();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        con.Close ();
+        //    }
+        //}
+
         public void saveBillItems(List<Items> items, SqlConnection con, int id)
         {
             try
             {
-                string qry = "insert into tbl_BillItems(ProductName, Price, Quantity) values";
+                // Ensure connection is open
+                if (con.State != System.Data.ConnectionState.Open)
+                {
+                    con.Open();
+                }
+
+                // SQL query to insert bill items
+                string qry = "INSERT INTO tbl_BillItems (ProductName, Price, Quantity, BillId) VALUES (@ProductName, @Price, @Quantity, @BillId)";
+
+                // Loop through each item and insert it safely with parameters
                 foreach (var item in items)
                 {
-                    qry += String.Format("('{0}',{1},{2},{3}),",item.ProductName,item.Price,item.Quantity,id);
+                    using (SqlCommand cmd = new SqlCommand(qry, con))
+                    {
+                        // Add parameters to avoid SQL injection
+                        cmd.Parameters.AddWithValue("@ProductName", item.ProductName);
+                        cmd.Parameters.AddWithValue("@Price", item.Price);
+                        cmd.Parameters.AddWithValue("@Quantity", item.Quantity);
+                        cmd.Parameters.AddWithValue("@BillId", id);
+
+                        // Execute the insert command for each item
+                        cmd.ExecuteNonQuery();
+                    }
                 }
-                qry = qry.Remove(qry.Length-1);
-                SqlCommand cmd = new SqlCommand(qry, con);
-                cmd.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                // Log or handle the exception as needed
+                throw new Exception("Error while saving bill items.", ex);
             }
             finally
             {
-                con.Close ();
+                // Close the connection in the finally block to ensure it's closed even in case of exceptions
+                if (con.State != System.Data.ConnectionState.Closed)
+                {
+                    con.Close();
+                }
             }
         }
+
     }
 }
