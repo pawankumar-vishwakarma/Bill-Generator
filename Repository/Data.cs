@@ -23,6 +23,7 @@ namespace BillGenerator.Repository
 
             try
             {
+                details.TotalAmount = details.Items.Sum(i=> i.Quantity* i.Price);
                 con.Open();
                 SqlCommand cmd = new SqlCommand("spt_saveEBillDetails", con);
                 cmd.CommandType = CommandType.StoredProcedure;
