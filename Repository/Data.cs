@@ -22,7 +22,7 @@ namespace BillGenerator.Repository
             SqlConnection con = new SqlConnection(ConnString);
 
             try
-            {
+            {                               
                 details.TotalAmount = details.Items.Sum(i=> i.Quantity* i.Price);
                 con.Open();
                 SqlCommand cmd = new SqlCommand("spt_saveEBillDetails", con);
