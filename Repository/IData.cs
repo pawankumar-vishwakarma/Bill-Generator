@@ -13,6 +13,6 @@ namespace BillGenerator.Repository
         void saveBillDetails(BillDetails details);
 
         void saveBillItems(List<Items> items,SqlConnection con, int id); 
-        List<BillDetails> getBillDetails(int id);  
+        //List<BillDetails> getBillDetails(int id);  
     }
 }
