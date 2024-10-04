@@ -22,8 +22,8 @@ namespace BillGenerator.Repository
             SqlConnection con = new SqlConnection(ConnString);
 
             try
-            {                               
-                details.TotalAmount = details.Items.Sum(i=> i.Quantity* i.Price);
+            {
+                details.TotalAmount = details.Items.Sum(i => i.Quantity * i.Price);
                 con.Open();
                 SqlCommand cmd = new SqlCommand("spt_saveEBillDetails", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -121,5 +121,23 @@ namespace BillGenerator.Repository
             }
         }
 
+
+        public List<BillDetails> getAllDetails(int id)
+        {
+            List<BillDetails> list = new List<BillDetails>();
+            try
+            {
+                SqlConnection con = new SqlConnection(ConnString);
+                con.Open();
+                SqlCommand cmd = new SqlCommand("", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = cmd.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error while showing all bill details.", ex);
+            }
+            return list;
+        }
     }
 }
