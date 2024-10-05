@@ -125,17 +125,27 @@ namespace BillGenerator.Repository
         public List<BillDetails> getAllDetails(int id)
         {
             List<BillDetails> list = new List<BillDetails>();
+            Items = item;
+
+            SqlConnection con = new SqlConnection(ConnString);
             try
             {
-                SqlConnection con = new SqlConnection(ConnString);
                 con.Open();
                 SqlCommand cmd = new SqlCommand("", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    item = new Items();
+                }
             }
             catch (Exception ex)
             {
                 throw new Exception("Error while showing all bill details.", ex);
+            }
+            finally
+            {
+                con.Close();
             }
             return list;
         }
