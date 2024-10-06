@@ -101,7 +101,7 @@ namespace BillGenerator.Repository
                         cmd.Parameters.AddWithValue("@Quantity", item.Quantity);
                         cmd.Parameters.AddWithValue("@BillId", id);
 
-                        // Execute the insert command for each item
+                        // Execute the insert command for each items
                         cmd.ExecuteNonQuery();
                     }
                 }
