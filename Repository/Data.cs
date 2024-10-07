@@ -113,6 +113,7 @@ namespace BillGenerator.Repository
             }
             finally
             {
+                //
                 // Close the connection in the finally block to ensure it's closed even in case of exceptions
                 if (con.State != System.Data.ConnectionState.Closed)
                 {
