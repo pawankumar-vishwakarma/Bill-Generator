@@ -53,7 +53,7 @@ namespace BillGenerator.Repository
                 con.Close();
             }
         }
-
+        // second method
         //public void saveBillItems(List<Items> items, SqlConnection con, int id)
         //{
         //    try
@@ -108,6 +108,8 @@ namespace BillGenerator.Repository
             }
             catch (Exception ex)
             {
+
+               
                 // Log or handle the exception as needed
                 throw new Exception("Error while saving bill items.", ex);
             }
