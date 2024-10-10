@@ -53,7 +53,7 @@ namespace BillGenerator.Repository
                 con.Close();
             }
         }
-        // second method
+ 
         //public void saveBillItems(List<Items> items, SqlConnection con, int id)
         //{
         //    try
