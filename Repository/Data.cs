@@ -54,7 +54,7 @@ namespace BillGenerator.Repository
             }
         }
        
-        // Status Update
+       
         //public void saveBillItems(List<Items> items, SqlConnection con, int id)
         //{
         //    try
